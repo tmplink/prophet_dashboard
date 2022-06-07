@@ -2,16 +2,15 @@
 <html lang="zh-cn">
 
 <head>
-    <title>TTTTT</title>
+    <title>Prophet</title>
     <meta name="description" content="Free and easy to use temporary file transfer station">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
     <meta name="renderer" content="webkit" />
 
-    <link rel="icon" href="/img/ico/favicon.ico" type="image/x-icon" />
-    <link rel="apple-touch-icon-precomposed" href="/img/ico/logo-256x256.png" />
-    <link rel="stylesheet" href="https://static.vx-cdn.com/project/font-awesome/v6.1.1/css/all.min.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon-precomposed" href="/plugin/bootstrap-icons-1.8.3/Speedometer.svg" />
 
     <script type="text/javascript">
         'use strict';
@@ -19,8 +18,7 @@
         try {
             var f = new Function("class tmpUITest{a=0}");
         } catch (e) {
-            document.write("<p>此应用程序无法运行在比较老的浏览器上，请更新到最新版本的浏览器。通常建议使用 Edge 或者 Firefox 浏览器。</p>");
-            document.write("<p>App is not available on this browser, please update to the latest version of your browser.</p>");
+            window.location.href = '/version.html';
         }
         
     </script>
@@ -30,7 +28,7 @@
         var app = new tmpUI({
             "version": 812,
             "siteroot": "/",
-            "loadingIcon": "/img/ico/logo-new.svg",
+            "loadingIcon": "/plugin/bootstrap-icons-1.8.3/Speedometer.svg",
             "googleAnalytics": "UA-96864664-3",
             "loadingPage": true,
             "loadingProgress": true,
@@ -40,168 +38,33 @@
             "language": {
                 "en": "/json/en.json",
                 "cn": "/json/cn.json",
-                "hk": "/json/hk.json",
-                "jp": "/json/jp.json"  
             },
 
             "preload": {
                 "init": {
                     "/js/tools/jquery.min.js": { "type": "js", "reload": false },
-                    "/js/tools/clipboard.min.js": { "type": "js", "reload": false },
-                    "/js/tools/jquery.cookie.js": { "type": "js", "reload": false },
-                    "/js/tools/sha1.js": { "type": "js", "reload": false },
-                    "/js/tools/base64.js": { "type": "js", "reload": false },
-                    "/js/tools/jquery.tooltips.js": { "type": "js", "reload": false },
-                    "/plugin/bootstrap4/js/bootstrap.bundle.min.js": { "type": "js", "reload": false },
-                    "/plugin/bootstrap4/css/bootstrap.min.css": { "type": "css", "reload": false },
-                    "/plugin/tabler/min.js": { "type": "js", "reload": false },
-                    "/plugin/tabler/min.css": { "type": "css", "reload": false },
-                    "/js/core/tools_file_manager.js": { "type": "js", "reload": false },
                     "/js/core/function.js": { "type": "js", "reload": false },
-                    "/js/core/media.js": { "type": "js", "reload": false },
-                    "/js/core/navbar.js": { "type": "js", "reload": false },
-                    "/js/core/uploader.js": { "type": "js", "reload": false },
-                    "/js/core/giftcard.js": { "type": "js", "reload": false },
-                    "/js/core/tmplink.js": { "type": "js", "reload": false },
-                    "/css/reset.css": { "type": "css", "reload": false },
-                    "/css/dark.css": { "type": "css", "reload": false },
-                    "/tpl/include/gtpl.html": { "type": "tpl", "reload": false },
+                    "/plugin/bootstrap-icons-1.8.3/bootstrap-icons.css": { "type": "css", "reload": false },
+                    "/plugin/bootstrap5.2/js/bootstrap.min.js": { "type": "js", "reload": false },
+                    "/plugin/bootstrap5.2/css/bootstrap.min.css": { "type": "css", "reload": false },
+                    "/plugin/dashboard/dashboard.js": { "type": "js", "reload": false },
+                    "/plugin/dashboard/dashboard.css": { "type": "css", "reload": false },
                     "/js/init/init.js": { "type": "js" }
                 }
             },
             "append": {
-                "tmplink": {
-                    "/tpl/include/head.html": { "type": "html", "target": { "type": "id", "val": "tpl_header" } },
-                    "/tpl/include/foot.html": { "type": "html", "target": { "type": "id", "val": "tpl_footer" } },
-                    "/tpl/include/model.html": { "type": "html", "target": { "type": "id", "val": "tpl_model" } }
+                "dashboard": {
+                    "/tpl/include/header.html": { "type": "html", "target": { "type": "id", "val": "tpl_header" } },
+                    "/tpl/include/sidebar.html": { "type": "html", "target": { "type": "id", "val": "tpl_sidebar" } },
                 }
             },
             "path": {
                 "/": {
-                    "title": "TMP.link",
+                    "title": "Prophet - Dashboard",
                     "preload": ["init"],
-                    "append": ["tmplink"],
+                    "append": ["dashboard"],
                     "body": {
-                        "/css/index.css": { "type": "css" },
-                        "/js/init/init_index.js": { "type": "js" },
-                        "/tpl/index.html": { "type": "html", "target": { "type": "body" } }
-                    }
-                },
-                "/reg": {
-                    "title": "TMP.link - Sign up",
-                    "preload": ["init"],
-                    "append": ["tmplink"],
-                    "body": {
-                        "/css/sp.css": { "type": "css" },
-                        "/js/init/init_reg.js": { "type": "js" },
-                        "/tpl/reg.html": { "type": "html", "target": { "type": "body" } }
-                    }
-                },
-                "/login": {
-                    "title": "TMP.link - Login",
-                    "preload": ["init"],
-                    "append": ["tmplink"],
-                    "body": {
-                        "/css/sp.css": { "type": "css" },
-                        "/js/init/init_login.js": { "type": "js" },
-                        "/tpl/login.html": { "type": "html", "target": { "type": "body" } }
-                    }
-                },
-                "/reset": {
-                    "title": "TMP.link - Reset Password",
-                    "preload": ["init"],
-                    "append": ["tmplink"],
-                    "body": {
-                        "/css/sp.css": { "type": "css" },
-                        "/js/init/init_reset.js": { "type": "js" },
-                        "/tpl/reset.html": { "type": "html", "target": { "type": "body" } }
-                    }
-                },
-                "/tos": {
-                    "title": "TMP.link - Terms of Service",
-                    "preload": ["init"],
-                    "append": ["tmplink"],
-                    "body": {
-                        "/css/index.css": { "type": "css" },
-                        "/js/init/init_tos.js": { "type": "js" },
-                        "/tpl/tos.html": { "type": "html", "target": { "type": "body" } }
-                    }
-                },
-                "/privacy": {
-                    "title": "TMP.link - Privacy Policy",
-                    "preload": ["init"],
-                    "append": ["tmplink"],
-                    "body": {
-                        "/css/index.css": { "type": "css" },
-                        "/js/init/init_privacy.js": { "type": "js" },
-                        "/tpl/privacy.html": { "type": "html", "target": { "type": "body" } }
-                    }
-                },
-                "/about": {
-                    "title": "TMP.link -About",
-                    "preload": ["init"],
-                    "append": ["tmplink"],
-                    "body": {
-                        "/css/index.css": { "type": "css" },
-                        "/tpl/about.html": { "type": "html", "target": { "type": "body" } }
-                    }
-                },
-                "/workspace": {
-                    "title": "TMP.link - Files",
-                    "preload": ["init"],
-                    "append": ["tmplink"],
-                    "body": {
-                        "/css/index.css": { "type": "css" },
-                        "/js/init/init_workspace.js": { "type": "js" },
-                        "/tpl/workspace.html": { "type": "html", "target": { "type": "body" } }
-                    }
-                },
-                "/dir": {
-                    "title": "TMP.link - Directory",
-                    "preload": ["init"],
-                    "append": ["tmplink"],
-                    "body": {
-                        "/css/index.css": { "type": "css" },
-                        "/js/init/init_dir.js": { "type": "js" },
-                        "/tpl/dir.html": { "type": "html", "target": { "type": "body" } }
-                    }
-                },
-                "/room": {
-                    "title": "TMP.link - Directory",
-                    "preload": ["init"],
-                    "append": ["tmplink"],
-                    "body": {
-                        "/css/index.css": { "type": "css" },
-                        "/js/init/init_room.js": { "type": "js" },
-                        "/tpl/room.html": { "type": "html", "target": { "type": "body" } }
-                    }
-                },
-                "/503": {
-                    "title": "TMP.link - 503",
-                    "preload": ["init"],
-                    "append": ["tmplink"],
-                    "body": {
-                        "/css/sp.css": { "type": "css" },
-                        "/tpl/503.html": { "type": "html", "target": { "type": "body" } }
-                    }
-                },
-                "/404": {
-                    "title": "TMP.link - 404",
-                    "preload": ["init"],
-                    "append": ["tmplink"],
-                    "body": {
-                        "/css/sp.css": { "type": "css" },
-                        "/tpl/404.html": { "type": "html", "target": { "type": "body" } }
-                    }
-                },
-                "/file": {
-                    "title": "TMP.link - Download",
-                    "preload": ["init"],
-                    "append": ["tmplink"],
-                    "body": {
-                        "/css/index.css": { "type": "css" },
-                        "/js/init/init_file.js": { "type": "js" },
-                        "/tpl/file.html": { "type": "html", "target": { "type": "body" } }
+                        "/tpl/dashboard.html": { "type": "html", "target": { "type": "body" } }
                     }
                 }
             }
@@ -213,7 +76,6 @@
 <body>
     <div id="tmpui"></div>
     <div id="tmpui_body" class="d-flex flex-column"></div>
-    <script src="https://www.recaptcha.net/recaptcha/api.js?render=6LfqxcsUAAAAABAABxf4sIs8CnHLWZO4XDvRJyN5" async="true"></script>
 </body>
 
 </html>
