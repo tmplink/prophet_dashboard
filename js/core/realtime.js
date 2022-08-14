@@ -1,5 +1,6 @@
 class realtime {
     parent = null;
+    networkChart = [];
 
     init(parent) {
         this.parent = parent;
@@ -37,30 +38,54 @@ class realtime {
                 return false;
             }
 
-            console.log(units);
             //prepare data
             let netData = this.prepareNetwork(units);
-            console.log(netData);
-            this.drawLayer(server_key,netData);
+            this.drawLayer(server_key, netData);
 
-
+            //auto update
+            setTimeout(()=>{
+                this.updateNetworkChart(server_key);
+            },3000);
         }, 'json');
     }
 
-    drawLayer(key,data){
+    drawLayer(key, data) {
         let obj = [];
-        for(let i in data){
-            //create layer
-            obj.push({
-                interface:i,
-                key:key,
-            });
-            $('#realtime_charts_'+key).html(app.tpl('prophet_realtime_network_chart_tpl', obj));
+        for (let i in data) {
 
             let layerIDBytes = `#layer_bytes_${i}_${key}`;
             let layerIDPackets = `#layer_packets_${i}_${key}`;
-            this.drawChartForBytes(layerIDBytes,data[i]);
-            this.drawChartForPackets(layerIDPackets,data[i]);
+
+            //update or create chart
+            if (this.networkChart[key] === undefined) {
+                //create layer
+                obj.push({
+                    interface: i,
+                    key: key,
+                });
+                $('#realtime_charts_' + key).html(app.tpl('prophet_realtime_network_chart_tpl', obj));
+
+                this.networkChart[key] = {};
+                this.networkChart[key].bytes = this.drawChartForBytes(layerIDBytes, data[i]);
+                this.networkChart[key].packets = this.drawChartForPackets(layerIDPackets, data[i]);
+            }else{
+                this.networkChart[key].bytes.load({
+                    axis: {
+                        x: {
+                            categories: data[i].time
+                        }
+                    },
+                    columns: [data[i].recv_bytes, data[i].send_bytes]
+                });
+                this.networkChart[key].packets.load({
+                    axis: {
+                        x: {
+                            categories: data[i].time
+                        }
+                    },
+                    columns: [data[i].recv_packets, data[i].send_packets]
+                });
+            }
         }
     }
 
@@ -90,7 +115,7 @@ class realtime {
                         return data.time[x];
                     },
                     value: function (value, ratio, id) {
-                        return bytetoconver(value, true)+'/s';
+                        return bytetoconver(value, true) + '/s';
                     }
                 }
             },
@@ -100,7 +125,7 @@ class realtime {
                 right: 0
             },
             transition: {
-                duration: 0
+                duration: 100
             },
             point: {
                 show: false
@@ -116,7 +141,7 @@ class realtime {
         opt.data.types = { data1: 'area-spline', data2: 'area-spline' };
         opt.data.groups = [['data1', 'data2']];
         opt.data.type = 'line';
-        c3.generate(opt);
+        return c3.generate(opt);
     }
 
     drawChartForPackets(domID, data) {
@@ -145,7 +170,7 @@ class realtime {
                         return data.time[x];
                     },
                     value: function (value, ratio, id) {
-                        return value+'/s';
+                        return value + '/s';
                     }
                 }
             },
@@ -155,7 +180,7 @@ class realtime {
                 right: 0
             },
             transition: {
-                duration: 0
+                duration: 100
             },
             point: {
                 show: false
@@ -171,7 +196,7 @@ class realtime {
         opt.data.types = { data3: 'area-spline', data4: 'area-spline' };
         opt.data.groups = [['data3', 'data4']];
         opt.data.type = 'line';
-        c3.generate(opt);
+        return c3.generate(opt);
     }
 
     prepareDataUnit(input) {
