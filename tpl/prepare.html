@@ -1,0 +1,33 @@
+<style>
+    html, #tmpui_body,
+    body {
+        height: 100%;
+    }
+
+    .Aligner {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+    }
+
+    .Aligner-item {
+        max-width: 50%;
+    }
+
+    .Aligner-item--top {
+        align-self: flex-start;
+    }
+
+    .Aligner-item--bottom {
+        align-self: flex-end;
+    }
+</style>
+<div class="Aligner">
+    <div class="Aligner-item">
+        <div style="text-align: center;">
+            <img src="/img/loading.svg" />
+        </div>
+        <h3 id="msg">正在处理...</h3>
+    </div>
+</div>

@@ -1,44 +1,68 @@
 <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
     <div class="position-sticky pt-3">
-        <ul class="nav flex-column">
+
+        <h6
+            class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted text-uppercase">
+            <span>主要</span>
+        </h6>
+        <ul class="nav flex-column mb-2">
             <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">
-                    <span data-feather="home" class="align-text-bottom"></span>
-                    主控
+                <a class="nav-link" href="/panel?service=dashboard" tmpui-action="nav.dashboard();">
+                    <i class="bi bi-house"></i> 控制台
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <span data-feather="file" class="align-text-bottom"></span>
-                    全局监视器
+                <a class="nav-link">
+                    <i class="bi bi-envelope"></i> 提醒（计划中）
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <span data-feather="shopping-cart" class="align-text-bottom"></span>
-                    网速监视器
+                <a class="nav-link">
+                    <i class="bi bi-exclamation-circle"></i> 红线（计划中）
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link">
+                    <i class="bi bi-caret-right-square"></i> 远程执行（计划中）
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link">
+                    <i class="bi bi-calendar-check"></i> 自动任务（计划中）
                 </a>
             </li>
         </ul>
 
         <h6
             class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted text-uppercase">
-            <span>归档</span>
-            <a class="link-secondary" href="#" aria-label="Add a new report">
-                <span data-feather="plus-circle" class="align-text-bottom"></span>
-            </a>
+            <span>实时状态</span>
         </h6>
         <ul class="nav flex-column mb-2">
             <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <span data-feather="file-text" class="align-text-bottom"></span>
-                    月度流量计
+                <a class="nav-link" href="/panel?service=global" tmpui-action="nav.global();">
+                    <i class="bi bi-diagram-3"></i> 主要指标
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <span data-feather="file-text" class="align-text-bottom"></span>
-                    使用率分析
+                <a class="nav-link" href="/panel?service=network" tmpui-action="nav.network();">
+                    <i class="bi bi-speedometer2"></i> 网络
+                </a>
+            </li>
+        </ul>
+
+        <h6
+            class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted text-uppercase">
+            <span>已归档数据</span>
+        </h6>
+        <ul class="nav flex-column mb-2">
+            <li class="nav-item">
+                <a class="nav-link" href="/panel?service=archive_traffic" tmpui-action="nav.archiveTraffic();">
+                    <i class="bi bi-bar-chart"></i> 网络用量
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/panel?service=archive_usage" tmpui-action="nav.archiveUsage();">
+                    <i class="bi bi-pie-chart-fill"></i> 使用率分析
                 </a>
             </li>
         </ul>

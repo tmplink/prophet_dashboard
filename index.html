@@ -29,7 +29,6 @@
             "version": 1,
             "siteroot": "/",
             "loadingIcon": "/plugin/bootstrap-icons-1.8.3/Speedometer.svg",
-            "googleAnalytics": "UA-96864664-3",
             "loadingPage": true,
             "loadingProgress": true,
             "pageNotFound": '/404',
@@ -49,8 +48,15 @@
                     "/plugin/bootstrap5.2/css/bootstrap.min.css": { "type": "css", "reload": false },
                     "/plugin/dashboard/dashboard.js": { "type": "js", "reload": false },
                     "/plugin/dashboard/dashboard.css": { "type": "css", "reload": false },
+
+                    "/plugin/c3/c3.min.js": { "type": "js", "reload": false },
+                    "/plugin/c3/d3.v3.min.js": { "type": "js", "reload": false },
+                    "/plugin/c3/c3.css": { "type": "css", "reload": false },
+
                     "/js/core/prophet.js": { "type": "js" , "reload": false},
                     "/js/core/archive.js": { "type": "js" , "reload": false},
+                    "/js/core/realtime.js": { "type": "js" , "reload": false},
+                    "/js/core/nav.js": { "type": "js" , "reload": false},
                     "/js/init/init.js": { "type": "js" }
                 }
             },
@@ -62,11 +68,26 @@
             },
             "path": {
                 "/": {
-                    "title": "Prophet - Dashboard",
+                    "title": "Prophet - Prepare",
                     "preload": ["init"],
                     "append": ["dashboard"],
                     "body": {
-                        "/tpl/dashboard.html": { "type": "html", "target": { "type": "body" } }
+                        "/tpl/prepare.html": { "type": "html", "target": { "type": "body" } },
+                        "/js/init/init_index.js": { "type": "js" }
+                    }
+                },
+                "/panel": {
+                    "title": "Prophet",
+                    "preload": ["init"],
+                    "append": ["dashboard"],
+                    "body": {
+                        "/tpl/index.html": { "type": "html", "target": { "type": "body" } },
+                        "/tpl/dashboard.html": { "type": "file" },
+                        "/tpl/global.html": { "type": "file" },
+                        "/tpl/network.html": { "type": "file" },
+                        "/tpl/archive_traffic.html": { "type": "file" },
+                        "/tpl/archive_usage.html": { "type": "file" },
+                        "/js/init/init_dashboard.js": { "type": "js" }
                     }
                 }
             }

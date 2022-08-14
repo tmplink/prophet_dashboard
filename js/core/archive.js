@@ -8,7 +8,7 @@ class archive{
     }
 
     drawList(){
-        
+        $('#prophet_archive_list').html(app.tpl('prophet_archive_list_tpl', this.list));
     }
 
     add(){

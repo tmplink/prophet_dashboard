@@ -1,0 +1,3 @@
+prophet.ready(()=>{
+    nav.init();
+});
