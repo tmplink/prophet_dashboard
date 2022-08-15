@@ -70,19 +70,9 @@ class realtime {
                 this.networkChart[key].packets = this.drawChartForPackets(layerIDPackets, data[i]);
             }else{
                 this.networkChart[key].bytes.load({
-                    axis: {
-                        x: {
-                            categories: data[i].time
-                        }
-                    },
                     columns: [data[i].recv_bytes, data[i].send_bytes]
                 });
                 this.networkChart[key].packets.load({
-                    axis: {
-                        x: {
-                            categories: data[i].time
-                        }
-                    },
                     columns: [data[i].recv_packets, data[i].send_packets]
                 });
             }
@@ -95,11 +85,14 @@ class realtime {
             axis: {
                 y: {
                     padding: {
-                        bottom: 0
+                        bottom: 0,
+                        // left: 20,
                     },
-                    show: false,
+                    show: true,
                     tick: {
-                        outer: false
+                        outer: true,
+                        values: chartSettings.byteRanges,
+                        format:  (d) => { return chartSettings.chartYset(d); }
                     }
                 },
                 x: {
@@ -112,20 +105,24 @@ class realtime {
             tooltip: {
                 format: {
                     title: function (x) {
-                        return data.time[x];
+                        if(data.time[x]===0){
+                            return '现在';
+                        }else{
+                            return data.time[x] +'秒前';
+                        }
                     },
                     value: function (value, ratio, id) {
                         return bytetoconver(value, true) + '/s';
                     }
                 }
             },
-            padding: {
-                bottom: 0,
-                left: 0,
-                right: 0
-            },
+            // padding: {
+            //     bottom: 0,
+            //     left: 0,
+            //     right: 0
+            // },
             transition: {
-                duration: 100
+                duration: 0
             },
             point: {
                 show: false
@@ -150,11 +147,14 @@ class realtime {
             axis: {
                 y: {
                     padding: {
-                        bottom: 0
+                        bottom: 0,
+                        // left: 20,
                     },
-                    show: false,
+                    show: true,
                     tick: {
-                        outer: false
+                        outer: true,
+                        values: chartSettings.packagesRanges,
+                        format:  (d) => { return chartSettings.chartYsetPackages(d); }
                     }
                 },
                 x: {
@@ -167,20 +167,24 @@ class realtime {
             tooltip: {
                 format: {
                     title: function (x) {
-                        return data.time[x];
+                        if(data.time[x]===0){
+                            return '现在';
+                        }else{
+                            return data.time[x] +'秒前';
+                        }
                     },
                     value: function (value, ratio, id) {
                         return value + '/s';
                     }
                 }
             },
-            padding: {
-                bottom: 0,
-                left: 0,
-                right: 0
-            },
+            // padding: {
+            //     bottom: 0,
+            //     left: 0,
+            //     right: 0
+            // },
             transition: {
-                duration: 100
+                duration: 0
             },
             point: {
                 show: false
@@ -212,6 +216,11 @@ class realtime {
 
     prepareNetwork(units) {
         let netData = {};
+        let time = 0;
+
+        // 先反转 units，使得时间从旧到新
+        units.reverse();
+
         for (let i = 0; i < units.length; i++) {
             let net = units[i].net;
             for (let j = 0; j < net.length; j++) {
@@ -230,9 +239,16 @@ class realtime {
                 netData[net[j].interface].send_bytes.push(net[j].send_bytes);
                 netData[net[j].interface].recv_packets.push(net[j].recv_packets);
                 netData[net[j].interface].send_packets.push(net[j].send_packets);
-                netData[net[j].interface].time.push(units[i].time);
+                netData[net[j].interface].time.push(time);
+                time = time + 3;
             }
         }
+
+        //反转 time
+        for (let key in netData) {
+            netData[key].time.reverse();
+        }
+
         return netData;
     }
 }

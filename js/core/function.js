@@ -59,7 +59,7 @@ function countDown(id, time) {
 
 function bytetoconver(val, label) {
     if (val < 1) {
-        return '0 B';
+        return '0';
     }
 
     var s = ['B', 'KB', 'MB', 'GB', 'TB', 'PB'];
@@ -70,6 +70,18 @@ function bytetoconver(val, label) {
         value += ' ' + s[e];
     }
     return value;
+}
+
+/**
+ * 根据输入的字节数给出对应的 MB
+ */
+function chartYset(bytes){
+    if(bytes<1){
+        return 0;
+    }
+    var mb = bytes / 1024 / 1024;
+    var mb = mb.toFixed(2);
+    return mb+'MB';
 }
 
 function formatTime(s) {
