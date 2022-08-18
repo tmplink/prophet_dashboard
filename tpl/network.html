@@ -14,11 +14,13 @@
 					<% for (let x in obj) { %>
 						<div class="col-12 pb-2" tldata="<% obj[x].key %>" id="prophet_realtime_network_<% obj[x].key %>">
 							<div class="card p-3 shadow-sm">
-								<div class="font-weight-bold text-truncate" title="<% obj[x].name %>">
-									<% obj[x].name %>
+								<div class="card-body">
+									<span class="h4 mb-1 btn btn-light" title="<% obj[x].name %>">
+										<i class="bi bi-hdd-stack-fill"></i> <% obj[x].name %>
+									</span>
+									<div class="border-dashed"></div>
+									<div id="realtime_charts_<% obj[x].key %>"></div>
 								</div>
-								<div class="border-dashed"></div>
-								<div id="realtime_charts_<% obj[x].key %>"></div>
 							</div>
 						</div>
 					<% } %>
@@ -26,11 +28,26 @@
 			</script>
 			<script type="text/template" id="prophet_realtime_network_chart_tpl">
 				<% for (let x in obj) { %>
-				<div>
-					<h4><% obj[x].interface %></h4>
-					<div id="layer_bytes_<% obj[x].interface %>_<% obj[x].key %>" class="chartUnit"></div>
-					<div id="layer_packets_<% obj[x].interface %>_<% obj[x].key %>" class="chartUnit"></div>
-				</div>
+					<div>
+						<span class="badge text-bg-light" >
+							<i class="bi bi-ethernet"></i> 
+							接口 <% obj[x].interface %>
+						</span>
+						<span class="badge text-bg-light" >
+							<i class="bi bi-arrow-up-circle-fill"></i> 
+							<span id="layer_bytes_download_<% obj[x].interface %>_<% obj[x].key %>"></span>
+						</span>
+						<span class="badge text-bg-light" >
+							<i class="bi bi-arrow-down-circle-fill"></i> 
+							<span id="layer_bytes_upload_<% obj[x].interface %>_<% obj[x].key %>"></span>
+						</span>
+					</div>
+					<div class="mt-5">
+						<div class="chartUnit" id="layer_bytes_<% obj[x].interface %>_<% obj[x].key %>">
+						</div>
+						<div class="chartUnit" id="layer_packets_<% obj[x].interface %>_<% obj[x].key %>">
+						</div>
+					</div>
 				<% } %>
 			</script>
 		</main>

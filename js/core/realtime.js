@@ -56,6 +56,16 @@ class realtime {
             let layerIDBytes = `#layer_bytes_${i}_${key}`;
             let layerIDPackets = `#layer_packets_${i}_${key}`;
 
+            //update quick view
+            let now_download = bytetoconver(data[i].recv_bytes[data[i].recv_bytes.length - 1], true);
+            let now_upload = bytetoconver(data[i].send_bytes[data[i].send_bytes.length - 1], true);
+
+            let layerIDdownload = `#layer_bytes_download_${i}_${key}`;
+            let layerIDupload = `#layer_bytes_upload_${i}_${key}`;
+
+            $(layerIDdownload).html(now_download+'/s');
+            $(layerIDupload).html(now_upload+'/s');
+
             //update or create chart
             if (this.networkChart[key] === undefined) {
                 //create layer
@@ -135,9 +145,9 @@ class realtime {
         opt.legend = { show: true };
         opt.data.columns = [data.recv_bytes, data.send_bytes];
         opt.data.names = { data1: 'upload', data2: 'download' };
-        opt.data.types = { data1: 'area-spline', data2: 'area-spline' };
+        opt.data.types = { data1: 'area', data2: 'area' };
         opt.data.groups = [['data1', 'data2']];
-        opt.data.type = 'line';
+        opt.data.type = 'area';
         return c3.generate(opt);
     }
 
@@ -197,9 +207,9 @@ class realtime {
         opt.legend = { show: true };
         opt.data.columns = [data.recv_packets, data.send_packets];
         opt.data.names = { data3: 'recv packets', data4: 'send packets' };
-        opt.data.types = { data3: 'area-spline', data4: 'area-spline' };
+        opt.data.types = { data3: 'area', data4: 'area' };
         opt.data.groups = [['data3', 'data4']];
-        opt.data.type = 'line';
+        opt.data.type = 'area';
         return c3.generate(opt);
     }
 
