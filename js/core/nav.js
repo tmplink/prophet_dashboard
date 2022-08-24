@@ -28,6 +28,7 @@ class nav_main{
 
     active(title){
         $('.navbar-collapse').collapse('hide');
+        // $('#admin_content').replaceWith(app.getFile('/tpl/home.html'));
         if(this.current!==title){
             $('#nav_'+this.current).removeClass('active');
             $('#nav_'+title).addClass('active');

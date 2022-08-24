@@ -1,41 +1,85 @@
-<div id="tpl_header"></div>
-<div class="container-fluid">
-  <div class="row">
-    <div id="tpl_sidebar"></div>
+<div class="container-xl">
+<div class="page-header d-print-none">
+	<div class="row align-items-center">
+		<div class="col">
+			<!-- Page pre-title -->
+			<div class="page-pretitle">
+				概览
+			</div>
+			<h2 class="page-title">
+				所有监测点
+			</h2>
+		</div>
+		<!-- Page title actions -->
+		<div class="col-auto ms-auto d-print-none">
+			<div class="btn-list">
+				<a href="#" class="btn btn-primary d-none d-sm-inline-block" data-bs-toggle="modal"
+					data-bs-target="#modal-report">
+					<!-- Download SVG icon from http://tabler-icons.io/i/plus -->
+					<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
+						stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+						stroke-linejoin="round">
+						<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+						<line x1="12" y1="5" x2="12" y2="19" />
+						<line x1="5" y1="12" x2="19" y2="12" />
+					</svg>
+					添加监测点
+				</a>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
 
-    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-      <div
-        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">监测点列表</h1>
-        <div class="btn-toolbar mb-2 mb-md-0">
-          <button type="button" class="btn btn-sm btn-success" onclick="prophet.archive.add();">
-            <span data-feather="calendar" class="align-text-bottom"></span>
-            添加监测点
-          </button>
-        </div>
-      </div>
-      <div id="prophet_archive_list"></div>
-      <script type="text/template" id="prophet_archive_list_tpl">
-			<div class="row">
-				<% for (let x in obj) { %>
-					<div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 pb-2" tldata="<% obj[x].key %>" id="prophet_archive_<% obj[x].key %>">
-						<div class="card p-3 shadow-sm">
-							<div class="font-weight-bold text-truncate" title="<% obj[x].name %>">
-								<% obj[x].name %>
-							</div>
-							<div class="border-dashed"></div>
-							<div class="d-inline text-right mt-1">
-								<button class="btn btn-sm m-1 btn-outline-danger btn-radius" onclick="prophet.archive.delete('<% obj[x].key %>')">
-									<i class="fa-fw fad fa-trash"></i>
-									<span>删除</span>
-								</button>
-							</div>
+<div class="page-body">
+	<div class="container-xl">
+		<div class="row row-deck row-cards" id="prophet_archive_list">
+
+		</div>
+	</div>
+</div>
+
+<script type="text/template" id="prophet_archive_list_tpl">
+
+	<% for (let x in obj) { %>
+
+		<div class="col-sm-6 col-lg-3">
+			<div class="card">
+				<div class="card-body">
+				<div class="d-flex align-items-center">
+					<div class="subheader"><% obj[x].name %></div>
+					<div class="ms-auto lh-1">
+					<div class="dropdown">
+						<a class="dropdown-toggle text-muted" href="#" data-bs-toggle="dropdown" aria-haspopup="true"
+						aria-expanded="false">操作</a>
+						<div class="dropdown-menu dropdown-menu-end">
+						<a class="dropdown-item active" href="#">修改名称</a>
+						<a class="dropdown-item" href="#" onclick="prophet.archive.delete('<% obj[x].key %>')">删除</a>
 						</div>
 					</div>
-				<% } %>
+					</div>
+				</div>
+				<div class="d-flex align-items-baseline">
+					<div class="h1 mb-0 me-2">$4,300</div>
+					<div class="me-auto">
+					<span class="text-green d-inline-flex align-items-center lh-1">
+						8%
+						<!-- Download SVG icon from http://tabler-icons.io/i/trending-up -->
+						<svg xmlns="http://www.w3.org/2000/svg" class="icon ms-1" width="24" height="24"
+						viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+						stroke-linejoin="round">
+						<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+						<polyline points="3 17 9 11 13 15 21 7" />
+						<polyline points="14 7 21 7 21 14" />
+						</svg>
+					</span>
+					</div>
+				</div>
+				</div>
+				<div id="chart-revenue-bg" class="chart-sm"></div>
 			</div>
-		</script>
-    </main>
-  </div>
-</div>
+		</div>
+
+	<% } %>
+</script>
 <div id="init_dashboard"></div>
