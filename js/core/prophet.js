@@ -16,6 +16,7 @@ class prophet_main{
     init(){
         this.archive = new archive();
         this.realtime = new realtime();
+        this.chart = new chart();
         this.archive.init(this);
         this.realtime.init(this);
         this.get();
