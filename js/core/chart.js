@@ -5,7 +5,7 @@ class chart {
   chartInstant = {}
 
   /**
-   * 为实时网络统计图绘制图表
+   * 为实时网络统计图绘制图表 - 传输字节数
    * @param {*} id | Interface
    * @param {*} data | Traffic Data
    */
@@ -15,20 +15,26 @@ class chart {
         chart: {
           type: "line",
           fontFamily: 'inherit',
-          height: 60.0,
-          sparkline: {
-            enabled: true
-          },
+          height: 300,
+          // sparkline: {
+          //   enabled: true
+          // },
           animations: {
-            enabled: false
+            enabled: false,
           },
+          toolbar: {
+            show: false
+          },
+          zoom: {
+            enabled: false
+          }
         },
         fill: {
           opacity: 1,
         },
         stroke: {
           width: [2, 1],
-          dashArray: [0, 3],
+          // dashArray: [0, 3],
           lineCap: "round",
           curve: "smooth",
         },
@@ -42,30 +48,129 @@ class chart {
         grid: {
           strokeDashArray: 4,
         },
+        markers: {
+          size: 0
+        },
+        dataLabels: {
+          enabled: false
+        },
         xaxis: {
           labels: {
-            // padding: 0,
-            formatter: (value) => {
-              return (value);
-            }
+            show: false
           },
           tooltip: {
             enabled: false
           },
-          // type: 'datetime',
         },
         yaxis: {
           labels: {
             padding: 4,
+            range: 1024*1024,
             formatter: (value,index) => {
               return this.formatYset(value)+'/s';
             }
           },
         },
+        title: {
+          text: '传输流量',
+          align: 'left'
+        },
         labels: dateTime,
-        colors: ["#206bc4", "#a8aeb7"],
+        colors: ["#206bc4", "#02f551"],
         legend: {
-          show: false,
+          show: true,
+        },
+      });
+      this.chartInstant[id].render()
+    } else {
+      this.chartInstant[id].updateOptions({
+        series: [{
+          name: "上传",
+          data: dataUpload
+        }, {
+          name: "下载",
+          data: dataDownload
+        }],
+        labels: dateTime
+      });
+    }
+  }
+
+  /**
+   * 为实时网络统计图绘制图表 - 传输数据包数
+   * @param {*} id | Interface
+   * @param {*} data | Traffic Data
+   */
+   realtimeForNetworkOfPackets(id, dataUpload, dataDownload, dateTime) {
+    if (this.chartInstant[id] === undefined) {
+      this.chartInstant[id] = new ApexCharts(document.getElementById(id), {
+        chart: {
+          type: "line",
+          fontFamily: 'inherit',
+          height: 300,
+          // sparkline: {
+          //   enabled: true
+          // },
+          animations: {
+            enabled: false,
+          },
+          toolbar: {
+            show: false
+          },
+          zoom: {
+            enabled: false
+          }
+        },
+        fill: {
+          opacity: 1,
+        },
+        stroke: {
+          width: [2, 1],
+          // dashArray: [0, 3],
+          lineCap: "round",
+          curve: "smooth",
+        },
+        series: [{
+          name: "上传",
+          data: dataUpload
+        }, {
+          name: "下载",
+          data: dataDownload
+        }],
+        grid: {
+          strokeDashArray: 4,
+        },
+        markers: {
+          size: 0
+        },
+        dataLabels: {
+          enabled: false
+        },
+        xaxis: {
+          labels: {
+            show: false
+          },
+          tooltip: {
+            enabled: false
+          },
+        },
+        yaxis: {
+          labels: {
+            padding: 4,
+            range: 1024*1024,
+            formatter: (value,index) => {
+              return this.formatYsetPackages(value)+'/s';
+            }
+          },
+        },
+        title: {
+          text: '收发包',
+          align: 'left'
+        },
+        labels: dateTime,
+        colors: ["#206bc4", "#02f551"],
+        legend: {
+          show: true,
         },
       });
       this.chartInstant[id].render()
@@ -89,7 +194,7 @@ class chart {
       return '0';
     }
 
-    var s = ['B', 'K', 'M', 'G', 'T', 'P'];
+    var s = ['B', 'KB', 'MB', 'GB', 'TB', 'PB'];
     var e = Math.floor(Math.log(bytes) / Math.log(1024));
     var value = ((bytes / Math.pow(1024, Math.floor(e))).toFixed(2));
     e = (e < 0) ? (-e) : e;

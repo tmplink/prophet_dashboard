@@ -31,11 +31,8 @@ class realtime {
             let units = this.prepareDataUnit(rsp.data);
 
             //if net not set
-            if (units[0].net === undefined) {
-                console.log(`Archive[${server_key}]::net not set`);
-                //hide card
-                $(`#prophet_realtime_network_${server_key}`).remove();
-                return false;
+            if (units[0].net !== undefined) {
+                $(`.prophet_realtime_network_${server_key}`).show();
             }
 
             //prepare data
@@ -56,16 +53,6 @@ class realtime {
             let layerIDBytes = `layer_bytes_${i}_${key}`;
             let layerIDPackets = `layer_packets_${i}_${key}`;
 
-            //update quick view
-            let now_download = bytetoconver(data[i].recv_bytes[data[i].recv_bytes.length - 1], true);
-            let now_upload = bytetoconver(data[i].send_bytes[data[i].send_bytes.length - 1], true);
-
-            let layerIDdownload = `#layer_bytes_download_${i}_${key}`;
-            let layerIDupload = `#layer_bytes_upload_${i}_${key}`;
-
-            $(layerIDdownload).html(now_download+'/s');
-            $(layerIDupload).html(now_upload+'/s');
-
             //update or create chart
             if (this.networkChart[key] === undefined) {
                 //create layer
@@ -73,12 +60,25 @@ class realtime {
                     interface: i,
                     key: key,
                 });
+
                 $('#realtime_charts_' + key).html(app.tpl('prophet_realtime_network_chart_tpl', obj));
+
+                //update quick view
+                let now_download = bytetoconver(data[i].recv_bytes[data[i].recv_bytes.length - 1], true);
+                let now_upload = bytetoconver(data[i].send_bytes[data[i].send_bytes.length - 1], true);
+
+                let layerIDdownload = `#layer_bytes_download_${i}_${key}`;
+                let layerIDupload = `#layer_bytes_upload_${i}_${key}`;
+
+                $(layerIDdownload).html(now_download+'/s');
+                $(layerIDupload).html(now_upload+'/s');
 
                 this.networkChart[key] = 1;
                 this.parent.chart.realtimeForNetworkOfBytes(layerIDBytes, data[i].send_bytes,data[i].recv_bytes,data[i].time);
+                this.parent.chart.realtimeForNetworkOfPackets(layerIDPackets, data[i].send_packets,data[i].recv_packets,data[i].time);
             }else{
                 this.parent.chart.realtimeForNetworkOfBytes(layerIDBytes, data[i].send_bytes,data[i].recv_bytes,data[i].time);
+                this.parent.chart.realtimeForNetworkOfPackets(layerIDPackets, data[i].send_packets,data[i].recv_packets,data[i].time);
             }
         }
     }
@@ -121,11 +121,6 @@ class realtime {
                 netData[net[j].interface].time.push(units[i].time);
             }
         }
-
-        //反转 time
-        // for (let key in netData) {
-        //     netData[key].time.reverse();
-        // }
 
         return netData;
     }
