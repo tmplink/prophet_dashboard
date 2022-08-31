@@ -4,6 +4,7 @@ class prophet_main{
     key = '4d1dfdc34527ab419a0275de9b5b7690';
 
     isKeyValid = false;
+    analyzed = null;
     archive = null;
     realtime = null;
     language = null;
@@ -16,9 +17,11 @@ class prophet_main{
     init(){
         this.archive = new archive();
         this.realtime = new realtime();
+        this.analyzed = new analyzed();
         this.chart = new chart();
         this.archive.init(this);
         this.realtime.init(this);
+        this.analyzed.init(this);
         this.get();
         this.readyExec();
     }

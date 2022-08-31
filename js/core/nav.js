@@ -14,11 +14,11 @@ class nav_main{
             case 'network':
                 this.network();
                 break;
-            case 'archive_traffic':
-                this.archiveTraffic();
+            case 'analyzed_traffic':
+                this.analyzedTraffic();
                 break;
-            case 'archive_usage':
-                this.archiveUsage();
+            case 'analyzed_usage':
+                this.analyzedUsage();
                 break;
             default:
                 this.dashboard();
@@ -46,22 +46,24 @@ class nav_main{
 
     global(){
         $('#admin_content').html(app.getFile('/tpl/global.html'));
-        this.active('global');
+        this.active('realtime');
     }
 
     network(){
         $('#admin_content').html(app.getFile('/tpl/network.html'));
         prophet.realtime.drawNetWork();
-        this.active('network');
+        this.active('realtime');
     }
 
-    archiveTraffic(){
-        $('#admin_content').html(app.getFile('/tpl/archive_traffic.html'));
-        this.active('archive_traffic');
+    analyzedTraffic(){
+        $('#admin_content').html(app.getFile('/tpl/analyzed_traffic.html'));
+        prophet.analyzed.initData();
+        prophet.analyzed.drawTraffic();
+        this.active('analyzed');
     }
 
-    archiveUsage(){
-        $('#admin_content').html(app.getFile('/tpl/archive_usage.html'));
-        this.active('archive_usage');
+    analyzedUsage(){
+        $('#admin_content').html(app.getFile('/tpl/analyzed_usage.html'));
+        this.active('analyzed');
     }
 }
