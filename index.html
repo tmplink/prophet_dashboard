@@ -44,6 +44,8 @@
                     "/js/tools/jquery.min.js": { "type": "js", "reload": false },
                     "/js/core/function.js": { "type": "js", "reload": false },
 
+                    "/plugin/iconfont/tabler-icons.min.css": { "type": "css", "reload": false },
+
                     "/plugin/tabler/js/tabler.min.js": { "type": "js", "reload": false },
                     "/plugin/tabler/css/tabler.min.css": { "type": "css", "reload": false },
                     "/plugin/tabler/css/tabler-flags.min.css": { "type": "css", "reload": false },
@@ -55,6 +57,7 @@
                     "/plugin/tabler/libs/jsvectormap/dist/maps/world.js": { "type": "js", "reload": false },
 
                     "/js/core/prophet.js": { "type": "js" , "reload": false},
+                    "/js/core/dashboard.js": { "type": "js" , "reload": false},
                     "/js/core/analyzed.js": { "type": "js" , "reload": false},
                     "/js/core/archive.js": { "type": "js" , "reload": false},
                     "/js/core/chart.js": { "type": "js" , "reload": false},
@@ -92,7 +95,16 @@
                         "/tpl/analyzed_usage.html": { "type": "file" },
                         "/js/init/init_dashboard.js": { "type": "js" }
                     }
-                }
+                },
+                "/register": {
+                    "title": "Prophet - Register",
+                    "preload": ["init"],
+                    "append": ["dashboard"],
+                    "body": {
+                        "/tpl/register.html": { "type": "html", "target": { "type": "body" } },
+                        "/js/init/init_register.js": { "type": "js" }
+                    }
+                },
             }
         });
     </script>

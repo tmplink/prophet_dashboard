@@ -8,6 +8,8 @@ class prophet_main{
     archive = null;
     realtime = null;
     language = null;
+    dashboard = null;
+
     readyCB = []; 
     readyStatus = false;
     settings = {
@@ -15,13 +17,17 @@ class prophet_main{
     };
 
     init(){
+
         this.archive = new archive();
         this.realtime = new realtime();
         this.analyzed = new analyzed();
+        this.dashboard = new dashboard();
         this.chart = new chart();
         this.archive.init(this);
         this.realtime.init(this);
         this.analyzed.init(this);
+        this.dashboard.init(this);
+
         this.get();
         this.readyExec();
     }
